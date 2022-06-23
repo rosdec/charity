@@ -109,9 +109,6 @@ describe("Charity contract", function () {
 
         campaign = await contract.getCampaign(campaignId);
 
-        console.log(accountPreviousBalance);
-        console.log(await accounts[0].getBalance());
-
         // Campaign balance is 0
         expect(campaign.balance).equals(0);
 

@@ -13,7 +13,6 @@ contract Charity {
         string title;
         string imgUrl;
         string description;
-        uint256 fundsRaised;
         bool isLive; 
         address initiator;
         uint256 deadline;
@@ -116,7 +115,6 @@ contract Charity {
         require(amountToDonate > 0, "Wrong ETH value");
 
         // increase the campaign balance by the amount donated;
-        campaign.fundsRaised += amountToDonate;
         campaign.balance += amountToDonate;
 
         // keep track of users donation history
