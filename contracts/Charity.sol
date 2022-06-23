@@ -118,7 +118,7 @@ contract Charity {
         campaign.balance += amountToDonate;
 
         // keep track of users donation history
-        userCampaignDonations[msg.sender][campaignId] = amountToDonate;
+        userCampaignDonations[msg.sender][campaignId] += amountToDonate;
 
         // emit FundsDonated event
         emit FundsDonated(campaignId, msg.sender, amountToDonate);

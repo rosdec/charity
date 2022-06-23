@@ -72,9 +72,12 @@ describe("Charity contract", function () {
             "This is the description");
 
         await contract.connect(accounts[1]).donateToCampaign(campaignId, { value: ethers.utils.parseEther('0.5') });
+        await contract.connect(accounts[1]).donateToCampaign(campaignId, { value: ethers.utils.parseEther('0.5') });
 
         const campaignAfter = await contract.getCampaign(campaignId);
+        const amountDonated = await contract.userCampaignDonations(accounts[1].address, campaignId);
 
+        expect(campaignAfter.balance).equals(amountDonated);
         expect(campaignAfter.balance.isZero()).is.false;
     })
 
