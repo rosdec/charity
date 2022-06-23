@@ -1,14 +1,10 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { expect } from "chai";
+import { expect, use } from "chai";
 import { ethers } from "hardhat";
-import { string } from "hardhat/internal/core/params/argumentTypes";
 import { Charity } from "../typechain";
-var chai = require('chai');
 
 var contract: Charity;
 var accounts: SignerWithAddress[];
-
-chai.use(require('chai-bignumber')());
 
 before(async function () {
     const CharityFactory = await ethers.getContractFactory("Charity");
@@ -77,9 +73,9 @@ describe("Charity contract", function () {
 
         await contract.connect(accounts[1]).donateToCampaign(campaignId, { value: ethers.utils.parseEther('0.5') });
 
-        const campaign = await contract.getCampaign(campaignId);
+        const campaignAfter = await contract.getCampaign(campaignId);
 
-        expect(campaign.balance).above(0);
+        expect(campaignAfter.balance.isZero()).is.false;
     })
 
     it("Campaign 1 is closed by its initiator", async () => {
@@ -92,7 +88,7 @@ describe("Charity contract", function () {
 
         const campaign = await contract.getCampaign(campaignId);
 
-        expect(campaign.isLive).is.false;
+        expect(campaign.isLive).is.false; 
     })
 
     it("The initiator for Campaign 1 withdraws its money", async () => {
